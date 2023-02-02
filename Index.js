@@ -1,11 +1,30 @@
-const http = require('http')
+const http = require("http")
 
 const PORT = 3000
 
 const Server = http.createServer()
 
+const Contacts = [
+    {
+        id: 0,
+        name: "Ayinla Akerekoro"
+    },
+    {
+        id: 1,
+        name: "Ajadi Jagidijagan"
+    },
+    {
+        id: 2,
+        name: "Ajani Ajanlekoko"
+    },
+    {
+        id: 3,
+        name: "Alamu Aresejabata"
+    }
+]
+
 Server.on("request", (req, res) => {
-    if (req.url === "/Names") {
+    if (req.url === "/Contacts") {
         // res.writeHead(200, {
         //     "Content-Type": "application/json",
         // })
@@ -25,6 +44,9 @@ Server.on("request", (req, res) => {
         res.write("</ul>")
         res.write("</body>")
         res.write("</html>")
+        res.end()
+    } else {
+        res.statusCode = 404
         res.end()
     }
 })
