@@ -24,17 +24,18 @@ const Contacts = [
 ]
 
 Server.on("request", (req, res) => {
-    if (req.url === "/Contacts") {
-        // res.writeHead(200, {
-        //     "Content-Type": "application/json",
-        // })
+    const Items = req.url.split("/")
+    // /Contacts/2 => ["", "Contacts", "2"]
+    if (Items[1] === "Contacts") {
         res.statusCode = 200
         res.setHeader("Content-Type", "application/json")
-        res.end(JSON.stringify({
-            id: 1,
-            name: "Abdul-Quayyum Alao"
-        }))
-    } else if (req.url === "/Messages") {
+        if (Items.length === 4) {
+            const ContactIndex = Number(Items[2])
+            res.end(JSON.stringify(Contacts[ContactIndex]))
+        } else {
+            res.end(JSON.stringify(Contacts))
+        }
+    } else if (Items[1] === "Messages") {
         res.setHeader('Content-Type', 'text/html')
         res.write("<html>")
         res.write("<body>")
