@@ -14,7 +14,7 @@ const Contacts = [
         name: "Ajadi Jagidijagan"
     },
     {
-        id: 2, 
+        id: 2,
         name: "Ajani Ajanlekoko"
     },
     {
@@ -30,7 +30,9 @@ Server.on("request", (req, res) => {
         req.on("data", (data) => {
             const Contact = data.toString()
             console.log("Request:", Contact)
+            Contacts.push(JSON.parse(Contact))
         })
+        req.pipe(res)
     }
     else if (req.method === "GET" && Items[1] === "Contacts") {
         res.statusCode = 200
