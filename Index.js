@@ -14,7 +14,7 @@ const Contacts = [
         name: "Ajadi Jagidijagan"
     },
     {
-        id: 2,
+        id: 2, 
         name: "Ajani Ajanlekoko"
     },
     {
@@ -27,12 +27,15 @@ Server.on("request", (req, res) => {
     const Items = req.url.split("/")
     // /Contacts/2 => ["", "Contacts", "2"]
     if (req.method === "POST" && Items[1] === "Contacts") {
-
+        req.on("data", (data) => {
+            const Contact = data.toString()
+            console.log("Request:", Contact)
+        })
     }
     else if (req.method === "GET" && Items[1] === "Contacts") {
         res.statusCode = 200
         res.setHeader("Content-Type", "application/json")
-        if (Items.length === 4) {
+        if (Items.length === 3) {
             const ContactIndex = Number(Items[2])
             res.end(JSON.stringify(Contacts[ContactIndex]))
         } else {
