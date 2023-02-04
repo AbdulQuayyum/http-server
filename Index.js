@@ -26,7 +26,10 @@ const Contacts = [
 Server.on("request", (req, res) => {
     const Items = req.url.split("/")
     // /Contacts/2 => ["", "Contacts", "2"]
-    if (Items[1] === "Contacts") {
+    if (req.method === "POST" && Items[1] === "Contacts") {
+
+    }
+    else if (req.method === "GET" && Items[1] === "Contacts") {
         res.statusCode = 200
         res.setHeader("Content-Type", "application/json")
         if (Items.length === 4) {
@@ -35,7 +38,7 @@ Server.on("request", (req, res) => {
         } else {
             res.end(JSON.stringify(Contacts))
         }
-    } else if (Items[1] === "Messages") {
+    } else if (req.method === "GET" && Items[1] === "Messages") {
         res.setHeader('Content-Type', 'text/html')
         res.write("<html>")
         res.write("<body>")
